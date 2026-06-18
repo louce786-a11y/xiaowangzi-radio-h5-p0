@@ -24,7 +24,7 @@ body { display: grid; place-items: center; padding: 18px; }
   touch-action: pan-y;
 }
 .rolling-card-strip {
-  --roll-step: 210px;
+  --roll-step: 146px;
   --roll-card-width: 23%;
   position: absolute;
   inset: 0;
@@ -91,21 +91,21 @@ body { display: grid; place-items: center; padding: 18px; }
   border-color: #fff2a6;
 }
 .rolling-card-zone.is-aligning .rolling-card {
-  opacity: 0.94;
-  transform: scale(0.86);
+  opacity: 1;
+  transform: none;
 }
 .rolling-card-zone.is-rolling .rolling-card-strip {
   transition: transform 6000ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 .rolling-card-strip.is-track .rolling-card {
   left: 0;
-  top: 16%;
+  top: var(--track-card-top);
   width: var(--track-card-width);
   min-width: 0;
   max-width: none;
-  height: 68%;
+  height: var(--track-card-height);
   opacity: 0.98;
-  transform: translate3d(var(--track-x), 0, 0) scale(0.88);
+  transform: translate3d(var(--track-x), 0, 0) scale(1);
   transition:
     transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1),
     filter 180ms ease;

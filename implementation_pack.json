@@ -185,7 +185,7 @@
     },
     "roll": {
       "duration_ms": 6000,
-      "step_px": 210,
+      "step_px": 146,
       "roll_variants": [
         19,
         22,

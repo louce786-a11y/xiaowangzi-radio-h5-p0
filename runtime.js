@@ -97,6 +97,12 @@
     const slots = asRecord(layoutGroup.slots);
     return asRecord(slots.card_strip_viewport || { w: 750, h: 299 });
   }
+  function cardCatalogSpacing() {
+    return asRecord(layoutGroup.card_catalog_spacing);
+  }
+  function rollLane() {
+    return asRecord(layoutGroup.roll_lane);
+  }
   function cards() {
     const configured = Array.isArray(sprites.cards) ? sprites.cards : [];
     if (configured.length) return configured.slice(0, 5);
@@ -194,6 +200,31 @@
       applyCatalogSlots(card, index, length);
     });
   }
+  function applyLaneSlots(strip) {
+    const cardNodes = Array.prototype.slice.call(strip.querySelectorAll(".rolling-card"));
+    const length = cardNodes.length || 5;
+    const viewport = cardStripViewport();
+    const lane = rollLane();
+    const spacing = cardCatalogSpacing();
+    const cardWidth = numberValue(lane.card_w, 139);
+    const cardHeight = numberValue(lane.card_h, 217);
+    const gap = numberValue(spacing.gap_px, 7);
+    const step = Math.max(cardWidth + gap, numberValue(lane.step_px, cardWidth + gap));
+    const baseX = numberValue(lane.x_base, 14);
+    const y = numberValue(lane.y, 38);
+    cardNodes.forEach(function (card, index) {
+      const visualIndex = defaultSlotIndexFor(index, length);
+      card.classList.remove("is-winning", "winning-reveal");
+      card.style.removeProperty("--track-x");
+      card.style.removeProperty("--winning-scale");
+      card.style.left = percent(baseX + visualIndex * step, viewport.w || 750);
+      card.style.top = percent(y, viewport.h || 299);
+      card.style.width = percent(cardWidth, viewport.w || 750);
+      card.style.height = percent(cardHeight, viewport.h || 299);
+      card.style.zIndex = "2";
+      card.style.transform = "none";
+    });
+  }
   function renderDefaultStrip(zone, strip) {
     const cardList = cards();
     strip.classList.remove("is-track");
@@ -201,6 +232,8 @@
     strip.style.transition = "";
     strip.style.transform = "translate3d(0, 0, 0)";
     strip.style.removeProperty("--track-card-width");
+    strip.style.removeProperty("--track-card-height");
+    strip.style.removeProperty("--track-card-top");
     strip.innerHTML = cardList.map(function (card, index) {
       return renderCard(card, index, { giftId: giftIdFor(card, index), rarity: rarityForIndex(index, cardList.length) });
     }).join("");
@@ -273,6 +306,7 @@
       return;
     }
     zone.classList.add("is-aligning");
+    applyLaneSlots(strip);
     window.setTimeout(function () {
       zone.classList.remove("is-aligning");
       const resultPayload = asRecord(message.payload);
@@ -313,10 +347,14 @@
     const zoneWidth = zone.getBoundingClientRect().width || 360;
     const slots = asRecord(layoutGroup.slots);
     const viewport = asRecord(slots.card_strip_viewport);
-    const lane = asRecord(asRecord(layoutGroup).roll_lane);
+    const lane = rollLane();
+    const spacing = cardCatalogSpacing();
     const scale = zoneWidth / numberValue(viewport.w, 750);
     const cardWidth = Math.max(68, Math.round(numberValue(lane.card_w, 139) * scale));
-    const step = Math.max(cardWidth + 7, Math.round(rollConfig.roll_step_px * scale));
+    const cardHeight = Math.max(80, Math.round(numberValue(lane.card_h, 217) * scale));
+    const cardTop = Math.round(numberValue(lane.y, 38) * scale);
+    const gap = numberValue(spacing.gap_px, 7) * scale;
+    const step = Math.max(cardWidth + gap, Math.round(rollConfig.roll_step_px * scale));
     const baseX = Math.round(numberValue(lane.x_base, 14) * scale);
     const endX = -variant * step;
     const rendered = [];
@@ -333,6 +371,8 @@
     strip.innerHTML = rendered.join("");
     strip.classList.add("is-track");
     strip.style.setProperty("--track-card-width", cardWidth + "px");
+    strip.style.setProperty("--track-card-height", cardHeight + "px");
+    strip.style.setProperty("--track-card-top", cardTop + "px");
     strip.style.transition = "none";
     strip.style.transform = "translate3d(0px, 0, 0)";
     zone.classList.add("is-rolling");
