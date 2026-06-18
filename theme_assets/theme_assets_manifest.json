@@ -1,0 +1,124 @@
+{
+  "schema_version": "theme_assets_manifest_v1",
+  "animation_family": "rolling_card_strip",
+  "viewport": {
+    "width": 750,
+    "height": 1334
+  },
+  "sprites": {
+    "background": {
+      "id": "background_full",
+      "file": "theme_assets/sprites/background/background-full.png",
+      "target_size": [
+        750,
+        1334
+      ],
+      "anchor": [
+        0,
+        0
+      ]
+    },
+    "cards": [
+      {
+        "gift_id": "gift_1",
+        "id": "gift_1_card",
+        "file": "theme_assets/sprites/cards/gift_1-card.png",
+        "display_label": "5折券",
+        "target_size_policy": "slot_size",
+        "anchor": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "gift_id": "gift_2",
+        "id": "gift_2_card",
+        "file": "theme_assets/sprites/cards/gift_2-card.png",
+        "display_label": "6折券",
+        "target_size_policy": "slot_size",
+        "anchor": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "gift_id": "gift_3",
+        "id": "gift_3_card",
+        "file": "theme_assets/sprites/cards/gift_3-card.png",
+        "display_label": "7折券",
+        "target_size_policy": "slot_size",
+        "anchor": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "gift_id": "gift_4",
+        "id": "gift_4_card",
+        "file": "theme_assets/sprites/cards/gift_4-card.png",
+        "display_label": "8折券",
+        "target_size_policy": "slot_size",
+        "anchor": [
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "gift_id": "gift_5",
+        "id": "gift_5_card",
+        "file": "theme_assets/sprites/cards/gift_5-card.png",
+        "display_label": "9折券",
+        "target_size_policy": "slot_size",
+        "anchor": [
+          0.5,
+          0.5
+        ]
+      }
+    ],
+    "results": [
+      {
+        "gift_id": "gift_1",
+        "file": "theme_assets/sprites/results/gift_1-result.png",
+        "display_label": "5折券"
+      },
+      {
+        "gift_id": "gift_2",
+        "file": "theme_assets/sprites/results/gift_2-result.png",
+        "display_label": "6折券"
+      },
+      {
+        "gift_id": "gift_3",
+        "file": "theme_assets/sprites/results/gift_3-result.png",
+        "display_label": "7折券"
+      },
+      {
+        "gift_id": "gift_4",
+        "file": "theme_assets/sprites/results/gift_4-result.png",
+        "display_label": "8折券"
+      },
+      {
+        "gift_id": "gift_5",
+        "file": "theme_assets/sprites/results/gift_5-result.png",
+        "display_label": "9折券"
+      }
+    ],
+    "buttons": [
+      {
+        "id": "draw_button",
+        "file": "theme_assets/sprites/buttons/draw_button.png",
+        "slot": "draw_button"
+      },
+      {
+        "id": "rule_button",
+        "file": "theme_assets/sprites/buttons/rule_button.png",
+        "slot": "rule_button"
+      }
+    ]
+  },
+  "fallback_policy": {
+    "source": "triptych_layers",
+    "card_sprites": "ui_layer_fallback",
+    "result_sprites": "ui_layer_fallback",
+    "button_sprites": "ui_layer_fallback"
+  }
+}
